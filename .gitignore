@@ -3,3 +3,4 @@
 *.sym
 *.o
 *.map
+.DS_Store
