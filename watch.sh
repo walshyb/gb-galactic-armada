@@ -49,7 +49,7 @@ compile() {
       rgbasm -o obj/$filename.o $file
   done
 
-	# Link all the objects and output a .gb file
+  # Link all the objects and output a .gb file
   rgblink -m dist/galactic.map -n dist/galactic.sym -o dist/galactic.gb ./obj/*.o
 
   # Fix header
