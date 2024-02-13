@@ -79,12 +79,17 @@ NextGameState::
   ;call z, InitStoryState
   ld a, [wGameState]
   cp a, 0 ; 0 = Menu
-  ;call z, InitTitleScreenState
+  call z, InitTitleScreenState
 
   ; Update the next state
   ld a, [wGameState]
   cp a, 2 ; 2 = Gameplay
   ;jp z, UpdateGameplayState
+  ld a, [wGameState]
   cp a, 1 ; 1 = Story
-  ;jp z, UpdateStoryState
-  jp UpdateTitleScreenState
+  ;;jp z, UpdateStoryState
+  ld a, [wGameState]
+  cp a, 0
+  jp InitTitleScreenState
+
+
