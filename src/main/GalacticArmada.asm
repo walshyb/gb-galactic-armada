@@ -43,3 +43,45 @@ EntryPoint:
   ld [rBGP], a
   ld a, %11100100
   ld [rOBP0], a
+
+
+NextGameState::
+  ; Don't turn off LCD outside of VBlank
+  call WaitForOneVBlank
+
+  call ClearBackground
+
+  ; turn off LCD
+  ld a, 0
+  ld [rLCDC], a
+
+  ld a, 0
+  ld [rSCX], a
+  ld [rSCY], a
+  ld [rWX], a
+  ld [rWY], a
+
+  ; disable interrupts
+  call DisableInterrupts
+
+  ; Clear all sprites
+  call ClearAllSprites
+
+  ; Initiate next game state
+  ld a, [wGameState]
+  cp a, 2 ; 2 = Gameplay
+  call z, InitGameplayState
+  ld a, [wGameState]
+  cp a, 1 ; 1 = Story
+  call z, InitStoryState
+  ld a, [wGameState]
+  cp a, 0 ; 0 = Menu
+  call z, InitTitleScreenState
+
+  ; Update the next state
+  ld a, [wGameState]
+  cp a, 2 ; 2 = Gameplay
+  jp z, UpdateGameplayState
+  cp a, 1 ; 1 = Story
+  jp z, UpdateStoryState
+  jp UpdateTitleScreenState
