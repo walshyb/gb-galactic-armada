@@ -25,21 +25,39 @@ InitTitleScreenState::
   ld a, LCDCF_ON |  LCDCF_BGON | LCDCF_OBJON | LCDCF_OBJ16
   ld [rLCDC], a
 
-  ret;
+  ret
 
-DrawTextTilesLoop::
-  ; Check for the end of string character 255
-  ld a, [hl]
-  cp 255
-  ret z
+DrawTitleScreen::
+  ; Copy tile data
+  ld de, titleScreenTileData ; de contains address where data will be copied from
+  ld hl, $9340 ; hl contains address where data will be copied to
+  ld bc, titleScreenTileDataEnd - titleScreenTileData ; bc contains the number of bytes to copy
+  call CopyDEintoMemoryAtHL
 
-  ; WRite current char (in hl) to the address
-  ; on the tilemap (in de)
-  ld a, [hl] ; TODO: why can't we hli
-  ld [de], a
+  ; Copy tile map
+  ld de, titleScreenTileMap
+  ld hl, $9800
+  ld bc, titleScreenTileMapEnd - titleScreenTileMap
+  call CopyDEintoMemoryAtHL_With52Offset
 
-  inc hl
-  inc de
+  ret
 
-  ; move to next character and next background tile
-  jp DrawTextTilesLoop
+UpdateTitleScreenState::
+  ;;;;;;;;;;;;;;;;;
+  ; Wait for A    ;
+  ;;;;;;;;;;;;;;;;;
+
+  ; Save passed value into variable mWaitKey
+  ; The WaitForKeyFunction always checks against this variable
+  ld a, PADF_A
+  ld [mWaitKey], a
+
+  call WaitForKeyFunction
+
+  ;;;;;;;;;;;;;;;;;
+  ; Load Story    ;
+  ;;;;;;;;;;;;;;;;;
+  ld a, 1
+  ld [wGameState], a
+  jp NextGameState
+
