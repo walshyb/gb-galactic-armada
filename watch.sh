@@ -51,6 +51,8 @@ compile() {
 
 	# Link all the objects and output a .gb file
 	rgblink -m dist/galactic.map -n dist/galactic.sym -o dist/galactic.gb ./obj/*.o
+
+	rgbfix -v -p 0xFF dist/galactic.gb
   
 
 

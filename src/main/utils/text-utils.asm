@@ -1,4 +1,16 @@
 SECTION "Text", ROM0 
+
+textFontTileData: INCBIN "src/generated/backgrounds/text-font.2bpp"
+textFontTileDataEnd:
+
+LoadTextFontIntoVRAM::
+  ; Copy tile data
+  ld de, textFontTileData
+  ld hl, $9000
+  ld bc, textFontTileDataEnd - textFontTileData
+  call CopyDEintoMemoryAtHL
+  ret
+
 DrawTextTilesLoop::
 
     ; Check for the end of string character 255

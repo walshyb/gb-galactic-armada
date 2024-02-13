@@ -49,7 +49,7 @@ NextGameState::
   ; Don't turn off LCD outside of VBlank
   call WaitForOneVBlank
 
-  call ClearBackground
+  ;call ClearBackground
 
   ; turn off LCD
   ld a, 0
@@ -62,26 +62,29 @@ NextGameState::
   ld [rWY], a
 
   ; disable interrupts
-  call DisableInterrupts
+  ;call DisableInterrupts
+  ld a, 0
+	ldh [rSTAT], a
+	di
 
   ; Clear all sprites
-  call ClearAllSprites
+  ;call ClearAllSprites
 
   ; Initiate next game state
   ld a, [wGameState]
   cp a, 2 ; 2 = Gameplay
-  call z, InitGameplayState
+  ;call z, InitGameplayState
   ld a, [wGameState]
   cp a, 1 ; 1 = Story
-  call z, InitStoryState
+  ;call z, InitStoryState
   ld a, [wGameState]
   cp a, 0 ; 0 = Menu
-  call z, InitTitleScreenState
+  ;call z, InitTitleScreenState
 
   ; Update the next state
   ld a, [wGameState]
   cp a, 2 ; 2 = Gameplay
-  jp z, UpdateGameplayState
+  ;jp z, UpdateGameplayState
   cp a, 1 ; 1 = Story
-  jp z, UpdateStoryState
+  ;jp z, UpdateStoryState
   jp UpdateTitleScreenState
