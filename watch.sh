@@ -50,27 +50,10 @@ compile() {
   done
 
 	# Link all the objects and output a .gb file
-	rgblink -m dist/galactic.map -n dist/galactic.sym -o dist/galactic.gb ./obj/*.o
+  rgblink -m dist/galactic.map -n dist/galactic.sym -o dist/galactic.gb ./obj/*.o
 
-	rgbfix -v -p 0xFF dist/galactic.gb
-  
-
-
-
-  #
-	# Compile the main file
-	#rgbasm -o main.o main.asm
-
-	# Compile the paddle
-	#rgbasm -o ./objects/paddle.o ./objects/paddle.asm
-	#rgbasm -o ./objects/ball.o ./objects/ball.asm
-	#rgbasm -o input.o input.asm
-
-	# Link all the objects and output a .gb file
-	#rgblink -m brickbreak.map -n brickbreak.sym -o brickbreak.gb ./*.o ./*/**.o
-
-	# Fix the header (adds checksum, logo, and ROM size) of the .gb file
-	#rgbfix -v -p 0xFF brickbreak.gb
+  # Fix header
+  rgbfix -v -p 0xFF dist/galactic.gb
 }
 
 compile
