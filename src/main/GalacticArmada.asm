@@ -1,4 +1,4 @@
-include "src/utils/hardware.inc"
+include "src/main/utils/hardware.inc"
 
 SECTION "GameVariables", WRAM0
 

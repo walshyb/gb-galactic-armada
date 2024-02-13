@@ -1,5 +1,5 @@
 # You can set the name of the .gb ROM file here
-PROJECTNAME   = GalacticArmada
+PROJECTNAME    	= GalacticArmada
 SRCDIR      	= src
 LIBDIR      	= libs
 OBJDIR      	= obj
@@ -43,7 +43,7 @@ ASMSOURCES_COLLECTED = \
 
 OBJS = $(patsubst %.asm,$(OBJDIR)/%.o,$(notdir $(ASMSOURCES_COLLECTED)))
 
-all: $(BINS)
+all = $(BINS)
 
 # ANCHOR: generate-graphics
 NEEDED_GRAPHICS = \

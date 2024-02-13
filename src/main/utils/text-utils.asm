@@ -1,3 +1,4 @@
+SECTION "Text", ROM0 
 DrawTextTilesLoop::
 
     ; Check for the end of string character 255
