@@ -22,7 +22,7 @@ InitTitleScreenState::
   call DrawTextTilesLoop ; Will start drawing at $99C3
 
   ; Turn LCD on
-  ld a, LCDCF_ON |  LCDCF_BGON | LCDCF_OBJON | LCDCF_OBJ16
+  ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON | LCDCF_OBJ16
   ld [rLCDC], a
 
   ret
