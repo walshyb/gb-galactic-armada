@@ -90,6 +90,6 @@ NextGameState::
   ;;jp z, UpdateStoryState
   ld a, [wGameState]
   cp a, 0
-  jp InitTitleScreenState
+  jp UpdateTitleScreenState
 
 
