@@ -24,8 +24,8 @@ InitGameplayState::
   ld [wScore+5], a
 
   call InitializeBackground
-  ;call InitializePlayer
-  ;call InitializeBullets
+  call InitializePlayer
+  call InitializeBullets
   ;call InitializeEnemies
 
   call InitStatInterrupts
@@ -43,8 +43,8 @@ InitGameplayState::
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;call DrawScore
-  ;call DrawLives
+  call DrawScore
+  call DrawLives
 
   ld a, 0
   ld [rWY], a
@@ -66,9 +66,9 @@ UpdateGameplayState::
   call ResetShadowOAM
   call ResetOAMSpriteAddress
 
-  ;call UpdatePlayer
+  call UpdatePlayer
   ;call UpdateEnemies
-  ;call UpdateBullets
+  call UpdateBullets
   call UpdateBackground
 
   call ClearRemainingSprites
