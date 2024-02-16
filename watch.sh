@@ -3,6 +3,7 @@ compile() {
   # make directories if not exists:
   mkdir -p src/generated/backgrounds
   mkdir -p src/generated/sprites
+  mkdir -p src/resources/sprites
 
   # Convert sprite .png resources to .2bpp
   all_sprites=$(find src/resources/sprites/ -name '*.png')
@@ -26,13 +27,17 @@ compile() {
 
       # create .2bpp file
       rgbgfx -c "#FFFFFF,#cbcbcb,#414141,#000000;" -o src/generated/backgrounds/$filename.2bpp $file
-      
-      # create .tilemap
-      rgbgfx -c "#FFFFFF,#cbcbcb,#414141,#000000;" \
-        --tilemap src/generated/backgrounds/$filename.tilemap \
-        --unique-tiles \
-        -o src/generated/backgrounds/$filename.2bpp \
-        $file
+
+      # If filename contains 'star-field' or 'title-screen'
+      if [[ $filename == *"star-field"* ]] || [[ $filename == *"title-screen"* ]]; then
+        # create .tilemap
+        rgbgfx -c "#FFFFFF,#cbcbcb,#414141,#000000;" \
+          --tilemap src/generated/backgrounds/$filename.tilemap \
+          --unique-tiles \
+          -o src/generated/backgrounds/$filename.2bpp \
+          $file
+        continue
+      fi
   done
 
 

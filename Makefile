@@ -72,11 +72,6 @@ $(GENBACKGROUNDS)/%.tilemap: $(RESBACKGROUNDS)/%.png | $(GENBACKGROUNDS)
 		$<
 # ANCHOR_END: generate-graphics
 
-compile.bat: Makefile
-	@echo "REM Automatically generated from Makefile" > compile.bat
-	@make -sn | sed y/\\/\\\\/\\\\\\\^/ | grep -v make >> compile.bat
-
-
 # ANCHOR: generate-objects
 # Extract directories from collected ASM sources and append "%.asm" to each one,
 # creating a wildcard-rule.
