@@ -73,7 +73,7 @@ NextGameState::
   ; Initiate next game state
   ld a, [wGameState]
   cp a, 2 ; 2 = Gameplay
-  ;call z, InitGameplayState
+  call z, InitGameplayState
   ld a, [wGameState]
   cp a, 1 ; 1 = Story
   call z, InitStoryState
@@ -84,7 +84,7 @@ NextGameState::
   ; Update the next state
   ld a, [wGameState]
   cp a, 2 ; 2 = Gameplay
-  ;jp z, UpdateGameplayState
+  jp z, UpdateGameplayState
   ld a, [wGameState]
   cp a, 1 ; 1 = Story
   jp z, UpdateStoryState

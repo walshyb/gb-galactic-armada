@@ -2,7 +2,7 @@ include "src/main/utils/hardware.inc"
 
 SECTION "SpriteVariables", WRAM0
 
-wLastOAMAdress:: dw
+wLastOAMAddress:: dw
 wSpritesUsed:: db
 wHelperValue:: db
 
@@ -34,7 +34,7 @@ ClearRemainingSprites::
 ClearRemainingSpritesLoop::
 
   ; get our offset address in hl
-  ld a, [wLastOAMAdress+0]
+  ld a, [wLastOAMAddress+0]
   ld l, a
   ld a, HIGH(wShadowOAM)
   ld h, a

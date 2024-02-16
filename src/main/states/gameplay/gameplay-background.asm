@@ -7,13 +7,13 @@ mBackgroundScroll:: dw
 
 SECTION "GameplayBackgroundSection", ROM0
 
-starFieldMap: INCBIN "src/generated/ackgrounds/star-field.tilemap"
+starFieldMap: INCBIN "src/generated/backgrounds/star-field.tilemap"
 starFieldMapEnd:
 
-starFieldTileData: INCBIN "src/generated/ackgrounds/star-field.2bpp"
+starFieldTileData: INCBIN "src/generated/backgrounds/star-field.2bpp"
 starFieldTileDataEnd:
 
-InitializeBackground:
+InitializeBackground::
   ld de, starFieldTileData
   ld hl, $9340
   ld bc, starFieldTileDataEnd - starFieldTileData
@@ -22,7 +22,7 @@ InitializeBackground:
   ld de, starFieldMap
   ld hl, $9800
   ld bc, starFieldMapEnd - starFieldMap
-  call CopyDEintoMemoryAtHL
+  call CopyDEintoMemoryAtHL_With52Offset
 
   ld a, 0
   ld [mBackgroundScroll+0], a
@@ -72,6 +72,13 @@ UpdateBackground::
   ; Use the de-scaled low byte as the background's position
   ld a, b
   ld [rSCY], a
+
+  ; Set window x position to be 1 to the right so we don't get white streak
+  ld a, 1
+  ld [rSCX], a
+
+
+
   ret
 
 
